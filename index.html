@@ -1,37 +1,33 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>IPL Mega Auction 2026 - Live Mock Auction</title>
+<title>IPL Mock Auction 2026 - Live Viewer + Admin Panel + Bidder</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="icon" href="https://iplstatic.s3.amazonaws.com/ipl/logo.png" type="image/png">
+<link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/thumb/8/89/IPL_Logo.svg/1200px-IPL_Logo.svg.png" type="image/png">
 
-<!-- Expanded Stylesheet with detailed comments for clarity and length -->
 <style>
-/* =========================================
-   ROOT VARIABLES
-   Define theme colors, radii, shadows for consistency across the app
-   ========================================= */
+/* ========================================= */
+/* ROOT VARIABLES FOR CONSISTENT THEMING     */
+/* ========================================= */
 :root {
-  --bg-main: #f3f4f8;         /* Main background color for the entire page */
-  --bg-card: #ffffff;         /* Card background for panels and sections */
-  --accent-red: #ff3b30;      /* Red accent for live status and errors */
-  --accent-orange: #ff6d00;   /* Orange for bids and highlights */
-  --accent-green: #00c853;    /* Green for success and active states */
-  --accent-dark: #111111;     /* Dark text and accents */
-  --text-muted: #7a7a7a;      /* Muted text for subtitles */
-  --border-soft: #e0e3eb;     /* Soft border color */
-  --radius-lg: 18px;          /* Large radius for cards and panels */
-  --radius-md: 12px;          /* Medium radius for buttons and inputs */
-  --shadow-soft: 0 4px 12px rgba(0,0,0,0.08); /* Soft shadow for depth */
-  --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; /* Main font stack */
+  --bg-main: #f3f4f8; /* Light gray background */
+  --bg-card: #ffffff; /* White cards */
+  --accent-red: #ff3b30; /* Red accents */
+  --accent-orange: #ff6d00; /* Orange for bids */
+  --accent-green: #00c853; /* Green for live */
+  --accent-dark: #111111; /* Dark text */
+  --text-muted: #7a7a7a; /* Muted text */
+  --border-soft: #e0e3eb; /* Soft borders */
+  --radius-lg: 18px; /* Large radius */
+  --radius-md: 12px; /* Medium radius */
+  --shadow-soft: 0 4px 12px rgba(0,0,0,0.08); /* Soft shadow */
+  --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; /* Font stack */
 }
 
-/* =========================================
-   RESET AND BASE STYLES
-   Reset default margins/paddings and set base body styles
-   ========================================= */
+/* ========================================= */
+/* RESET AND BASE STYLES                     */
+/* ========================================= */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -43,37 +39,34 @@ body {
   color: var(--accent-dark);
   line-height: 1.5;
   min-height: 100vh;
-  font-size: 16px; /* Base font size */
 }
 
-/* =========================================
-   APP SHELL / CONTAINER
-   Main container for centering content
-   ========================================= */
+/* ========================================= */
+/* LAYOUT WRAPPER                            */
+/* ========================================= */
 .app-shell {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 16px 16px 80px; /* Padding with extra bottom for scrolling on mobile */
+  padding: 16px;
 }
 
-/* =========================================
-   TOP SWITCH BAR
-   Bar for switching between viewer and login modes
-   ========================================= */
+/* ========================================= */
+/* HEADER WITH SWITCH BUTTONS                */
+/* ========================================= */
 .top-switch-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
-  background: var(--bg-card);
+  margin-bottom: 20px;
+  background: #fff;
   padding: 12px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-soft);
 }
 .brand-title {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
-  color: var(--accent-dark);
+  color: var(--accent-orange);
 }
 .switch-buttons {
   display: flex;
@@ -81,26 +74,26 @@ body {
 }
 .switch-btn {
   padding: 8px 16px;
-  border-radius: 999px; /* Pill shape for buttons */
+  border-radius: 999px;
   border: 1px solid var(--border-soft);
-  background: var(--bg-card);
-  font-size: 13px;
+  background: #ffffff;
+  font-size: 14px;
   cursor: pointer;
-  transition: background 0.3s ease;
-}
-.switch-btn:hover {
-  background: #f1f5f9; /* Hover effect for better UX */
+  transition: all 0.3s;
 }
 .switch-btn.active {
   background: var(--accent-dark);
   color: #ffffff;
   border-color: var(--accent-dark);
 }
+.switch-btn:hover {
+  background: var(--accent-green);
+  color: #fff;
+}
 
-/* =========================================
-   PANELS
-   General styles for login, admin, bidder panels
-   ========================================= */
+/* ========================================= */
+/* PANELS (LOGIN, VIEWER, ADMIN, BIDDER)     */
+/* ========================================= */
 .panel {
   display: none;
   background: var(--bg-card);
@@ -113,138 +106,63 @@ body {
   display: block;
 }
 
-/* =========================================
-   FORM ROWS
-   Styles for form inputs and labels
-   ========================================= */
-.form-row {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 14px;
-}
-label {
-  font-size: 13px;
-  margin-bottom: 4px;
-  color: var(--text-muted);
-}
-input {
-  font-family: var(--font-main);
-  font-size: 14px;
-  padding: 10px 12px;
-  border-radius: var(--radius-md);
-  border: 1px solid #d1d5db;
-  outline: none;
-  transition: border 0.3s ease;
-}
-input:focus {
-  border-color: var(--accent-dark);
-}
-
-/* =========================================
-   BUTTONS
-   Primary, secondary, and special buttons
-   ========================================= */
-.btn-primary {
-  background: var(--accent-orange);
-  color: #ffffff;
-  border: none;
-  border-radius: 999px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-.btn-primary:hover {
-  background: #ea580c;
-}
-.btn-secondary {
-  background: #f3f4f6;
-  color: var(--accent-dark);
-  border: none;
-  border-radius: 999px;
-  padding: 8px 16px;
-  font-size: 13px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-.btn-secondary:hover {
-  background: #e5e7eb;
-}
-.inline-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 8px;
-}
-
-/* =========================================
-   HELP TEXT
-   Small text for instructions
-   ========================================= */
-.help-text {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-top: 8px;
-}
-
-/* =========================================
-   TABLES
-   Styles for tables in admin and viewer
-   ========================================= */
-.table-wrap {
-  margin-top: 14px;
-  overflow-x: auto;
-}
-.simple-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 12px;
-}
-.simple-table th, .simple-table td {
-  border: 1px solid #f0f0f0;
-  padding: 8px 10px;
+/* ========================================= */
+/* LOGIN PANEL STYLES                        */
+/* ========================================= */
+.login-panel {
+  max-width: 400px;
+  margin: 50px auto;
   text-align: center;
 }
-.simple-table th {
-  background: #fafafa;
-  font-weight: 600;
+.login-panel h2 {
+  margin-bottom: 10px;
+  color: var(--accent-dark);
 }
-
-/* =========================================
-   BADGES
-   For user roles
-   ========================================= */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 500;
+.login-panel p {
+  color: var(--text-muted);
+  margin-bottom: 25px;
 }
-.badge-admin {
-  background: var(--accent-dark);
-  color: #fff;
+input[type="text"], input[type="password"] {
+  width: 100%;
+  padding: 14px;
+  margin: 12px 0;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-soft);
+  font-size: 16px;
+  outline: none;
 }
-.badge-bidder {
+input:focus {
+  border-color: var(--accent-orange);
+}
+.btn-login {
   background: var(--accent-orange);
-  color: #fff;
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 999px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
 }
-.badge-viewer {
-  background: #e0e0e0;
-  color: #333;
+.btn-login:hover {
+  background: var(--accent-red);
+}
+.help-text {
+  margin-top: 25px;
+  font-size: 13px;
+  color: var(--text-muted);
 }
 
-/* =========================================
-   TOP BAR FOR AUCTION
-   Auction status and timer
-   ========================================= */
+/* ========================================= */
+/* VIEWER / MAIN PAGE STYLES                 */
+/* ========================================= */
 .top-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 15px;
 }
 .title-block {
   display: flex;
@@ -256,7 +174,7 @@ input:focus {
   font-weight: 700;
 }
 .app-subtitle {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
 }
 .top-right {
@@ -272,7 +190,7 @@ input:focus {
   border-radius: 999px;
   background: #e8f9ef;
   color: var(--accent-green);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
 }
 .status-pill-dot {
@@ -282,17 +200,14 @@ input:focus {
   background: var(--accent-green);
 }
 .clock-box {
-  font-size: 12px;
+  font-size: 13px;
   padding: 6px 10px;
   border-radius: 999px;
   border: 1px solid var(--border-soft);
   background: #ffffff;
 }
 
-/* =========================================
-   TABS ROW
-   Tabs for navigation
-   ========================================= */
+/* Tabs Row */
 .tabs-row {
   display: flex;
   flex-wrap: wrap;
@@ -303,12 +218,12 @@ input:focus {
   padding: 8px 16px;
   border-radius: 999px;
   border: none;
-  background: #262626;
+  background: #000;
   color: #fff;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s;
 }
 .tab-chip.live {
   background: var(--accent-red);
@@ -324,26 +239,16 @@ input:focus {
   opacity: 0.9;
 }
 
-/* =========================================
-   CARDS
-   General card styles
-   ========================================= */
+/* Cards */
 .card {
   background: var(--bg-card);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-soft);
-  padding: 16px 18px 20px;
-  margin-bottom: 18px;
-  transition: box-shadow 0.3s ease;
-}
-.card:hover {
-  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  padding: 14px 16px 20px;
+  margin-bottom: 20px;
 }
 
-/* =========================================
-   CURRENT PLAYER CARD
-   Styles for player display
-   ========================================= */
+/* Current Player Card */
 .player-card-header {
   display: flex;
   align-items: center;
@@ -360,20 +265,19 @@ input:focus {
   height: 10px;
   border-radius: 50%;
   background: var(--accent-green);
-  animation: pulse 1.5s infinite;
 }
 .live-label {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--accent-green);
 }
 .player-seq {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
 }
 .player-main {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto minmax(0, 1fr);
   grid-gap: 12px;
 }
 .player-photo-frame {
@@ -385,8 +289,9 @@ input:focus {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  font-size: 42px;
-  font-weight: bold;
+}
+.player-photo-frame span {
+  font-size: 13px;
   color: var(--text-muted);
 }
 .player-text-block {
@@ -395,7 +300,7 @@ input:focus {
   gap: 6px;
 }
 .player-tagline {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
 }
 .player-name {
@@ -404,14 +309,14 @@ input:focus {
 }
 .player-meta-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
   margin-top: 10px;
-  font-size: 12px;
+  font-size: 13px;
 }
 .meta-label {
   color: var(--text-muted);
-  font-size: 11px;
+  font-size: 12px;
 }
 .meta-value {
   font-weight: 600;
@@ -420,20 +325,16 @@ input:focus {
   color: var(--accent-green);
 }
 
-/* =========================================
-   BID CARD
-   Styles for highest bid display
-   ========================================= */
+/* Highest Bid Card */
 .bid-card {
   margin-top: 16px;
   background: var(--accent-orange);
   color: #ffffff;
-  border-radius: var(--radius-md);
+  border-radius: 16px;
   padding: 12px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  animation: fadeIn 0.5s ease-in;
 }
 .bid-left {
   display: flex;
@@ -458,21 +359,21 @@ input:focus {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+}
+.team-logo span {
+  font-size: 14px;
   font-weight: 700;
   color: var(--accent-dark);
 }
 .team-name {
   margin: 0;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
 }
 
-/* =========================================
-   INTERESTED TEAMS
-   Tag row for interested teams
-   ========================================= */
+/* Interested Teams */
 .section-title {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   margin: 12px 0 6px;
 }
@@ -484,37 +385,30 @@ input:focus {
 .tag-pill {
   padding: 6px 12px;
   border-radius: 999px;
-  font-size: 11px;
+  font-size: 12px;
   background: #f1f1f1;
-  color: var(--accent-dark);
 }
 
-/* =========================================
-   RIGHT COLUMN
-   Activity and team table
-   ========================================= */
+/* Right Column Panels */
 .right-column {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 .panel-title {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   margin-bottom: 8px;
 }
 
-/* =========================================
-   LIVE ACTIVITY LIST
-   List for bid activity
-   ========================================= */
+/* Live Activity List */
 .activity-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  max-height: 200px;
+  max-height: 220px;
   overflow-y: auto;
-  font-size: 12px;
+  font-size: 13px;
 }
 .activity-list li {
   display: flex;
@@ -529,14 +423,11 @@ input:focus {
   color: var(--accent-green);
 }
 
-/* =========================================
-   TEAM SNAPSHOT TABLE
-   Table for team details
-   ========================================= */
+/* Team Summary Table */
 .team-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 11px;
+  font-size: 12px;
 }
 .team-table th,
 .team-table td {
@@ -548,131 +439,183 @@ input:focus {
   background: #fafafa;
 }
 
-/* =========================================
-   AUCTION NOT STARTED MESSAGE
-   Red message when auction not started
-   ========================================= */
-.not-started {
+/* Auction Not Started Message */
+.auction-not-started {
   text-align: center;
-  padding: 24px;
-  background: #fee2e2;
+  padding: 30px;
+  background: #fff;
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
   margin-bottom: 20px;
-  color: var(--accent-red);
-  font-size: 18px;
-  font-weight: 600;
 }
-.not-started .signal {
+.auction-not-started .red-signal {
   width: 20px;
   height: 20px;
   background: var(--accent-red);
   border-radius: 50%;
   display: inline-block;
   margin-right: 10px;
-  animation: blink 1s infinite;
 }
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-/* =========================================
-   RESPONSIVE DESIGN
-   Adjustments for mobile
-   ========================================= */
-@media (max-width: 767px) {
-  .main-grid {
-    grid-template-columns: 1fr;
-  }
-  .bid-card {
-    flex-direction: column;
-    text-align: center;
-  }
-  .bid-right {
-    margin-top: 10px;
-  }
-  .player-meta-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .app-shell {
-    padding: 12px;
-  }
-  .tabs-row {
-    justify-content: center;
-  }
+.auction-not-started h2 {
+  font-size: 20px;
+  color: var(--accent-red);
+  display: inline;
 }
 
-/* =========================================
-   ADMIN PANEL STYLES
-   Specific styles for admin controls
-   ========================================= */
-.admin-panel {
-  background: #fefce8;
-  padding: 16px;
-  border-radius: var(--radius-md);
-  margin-top: 20px;
+/* List Sections (Players, Teams, Purses) */
+.list-section {
+  margin-bottom: 30px;
 }
-.admin-btn-grid {
+.list-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--accent-dark);
+}
+.list-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+}
+.list-item {
+  background: #fff;
+  padding: 15px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+}
+.list-item h3 {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+.list-item p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 3px 0;
+}
+
+/* ========================================= */
+/* ADMIN PANEL STYLES                        */
+/* ========================================= */
+.admin-panel {
+  background: #fff;
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+.admin-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: var(--accent-red);
+}
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 12px;
-  margin-top: 12px;
 }
 .admin-btn {
-  padding: 10px;
+  padding: 12px;
   background: var(--accent-dark);
   color: #fff;
   border: none;
   border-radius: var(--radius-md);
   cursor: pointer;
   font-weight: 600;
-  transition: background 0.3s ease;
+  transition: background 0.3s;
 }
 .admin-btn:hover {
-  background: #374151;
-}
-.admin-btn-danger {
-  background: var(--accent-red);
-}
-.admin-btn-success {
   background: var(--accent-green);
 }
+.admin-btn.danger {
+  background: var(--accent-red);
+}
+.admin-btn.danger:hover {
+  background: #cc0000;
+}
 
-/* =========================================
-   BIDDER PANEL STYLES
-   Specific styles for bidder dashboard
-   ========================================= */
-.bidder-panel {
-  background: #ecfdf5;
-  padding: 16px;
+/* Change Password Form in Admin */
+.change-password-form {
+  margin-top: 30px;
+  padding: 20px;
+  background: #f9f9f9;
   border-radius: var(--radius-md);
-  margin-top: 20px;
+}
+.change-password-form select, .change-password-form input {
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-soft);
+}
+
+/* ========================================= */
+/* BIDDER PANEL STYLES                       */
+/* ========================================= */
+.bidder-panel {
+  background: #fff;
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+.bidder-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: var(--accent-green);
 }
 .bid-input {
   display: flex;
   gap: 10px;
-  margin-top: 12px;
+  margin-bottom: 20px;
 }
 .bid-input input {
   flex: 1;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-soft);
 }
 .bid-btn {
+  padding: 12px 20px;
   background: var(--accent-orange);
   color: #fff;
-  padding: 10px 20px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.bid-btn:hover {
+  background: var(--accent-red);
 }
 
-/* =========================================
-   FOOTER
-   Credits at the bottom
-   ========================================= */
-footer {
+/* ========================================= */
+/* RESPONSIVE STYLES                         */
+/* ========================================= */
+@media (max-width: 767px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+  .player-meta-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .btn-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ========================================= */
+/* ADDITIONAL UTILITY CLASSES                */
+/* ========================================= */
+.hidden {
+  display: none;
+}
+.text-center {
   text-align: center;
-  color: var(--text-muted);
-  font-size: 12px;
-  margin-top: 40px;
-  padding: 20px 0;
-  border-top: 1px solid var(--border-soft);
+}
+.mt-20 {
+  margin-top: 20px;
+}
+.mb-20 {
+  margin-bottom: 20px;
 }
 </style>
 </head>
@@ -680,63 +623,85 @@ footer {
 
 <div class="app-shell">
 
-  <!-- Viewer Panel Always Visible as Main Page -->
+  <!-- Header with View Switch -->
+  <div class="top-switch-bar">
+    <div class="brand-title">IPL Mock Auction 2026</div>
+    <div class="switch-buttons">
+      <button class="switch-btn active" data-view="viewer">Viewer</button>
+      <button class="switch-btn" data-view="login">Login (Bidder/Admin)</button>
+    </div>
+  </div>
+
+  <!-- Login Panel -->
+  <div id="loginPanel" class="panel">
+    <div class="login-panel">
+      <h2>Login to Participate</h2>
+      <p>Enter your team username and password to bid or admin credentials to host.</p>
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+      <button class="btn-login" onclick="handleLogin()">Login</button>
+      <p class="help-text mt-20">Team logins provided separately. Admin: Contact host for credentials.</p>
+    </div>
+  </div>
+
+  <!-- Viewer / Main Page Panel (Always Visible as Default) -->
   <div id="viewerPanel" class="panel active">
-    <!-- Auction Status Message -->
-    <div id="auctionStatusMessage" class="not-started" style="display: block;">
-      <span class="signal"></span>Auction Not Started - Let Curator Start
+
+    <!-- Auction Status Message if Not Started -->
+    <div id="auctionStatusMessage" class="auction-not-started hidden">
+      <div class="red-signal"></div>
+      <h2>Auction Not Started - Let Curator Start</h2>
     </div>
 
     <!-- Top Bar -->
     <div class="top-bar">
       <div class="title-block">
         <div class="app-title">Live Auction Center</div>
-        <div class="app-subtitle" id="modeLabel">Viewer Mode · Real-time Player Bids</div>
+        <div class="app-subtitle">Viewer Mode - Watch Real-Time Bids</div>
       </div>
       <div class="top-right">
         <div class="status-pill">
           <span class="status-pill-dot"></span>
-          <span id="auctionStatusLabel">OFFLINE</span>
+          <span id="auctionStatusLabel">LIVE</span>
         </div>
         <div class="clock-box">
-          Time left: <span id="roundTimer">00:00</span>
+          Time left: <span id="roundTimer">00:45</span>
         </div>
       </div>
     </div>
 
-    <!-- Tabs -->
+    <!-- Tabs Row -->
     <div class="tabs-row">
-      <button class="tab-chip live active" data-tab="live" onclick="handleTabClick(this)">LIVE TRACK</button>
-      <button class="tab-chip secondary" data-tab="teams" onclick="handleTabClick(this)">TEAM DETAILS</button>
-      <button class="tab-chip" data-team="CSK" onclick="handleTabClick(this)">CSK</button>
-      <button class="tab-chip" data-team="MI" onclick="handleTabClick(this)">MI</button>
-      <button class="tab-chip" data-team="RCB" onclick="handleTabClick(this)">RCB</button>
-      <button class="tab-chip" data-team="KKR" onclick="handleTabClick(this)">KKR</button>
-      <button class="tab-chip" data-team="SRH" onclick="handleTabClick(this)">SRH</button>
-      <button class="tab-chip" data-team="RR" onclick="handleTabClick(this)">RR</button>
-      <button class="tab-chip" data-team="GT" onclick="handleTabClick(this)">GT</button>
-      <button class="tab-chip" data-team="PBKS" onclick="handleTabClick(this)">PBKS</button>
-      <button class="tab-chip" data-team="DC" onclick="handleTabClick(this)">DC</button>
-      <button class="tab-chip" data-team="LSG" onclick="handleTabClick(this)">LSG</button>
-      <button class="tab-chip secondary" data-tab="sold" onclick="handleTabClick(this)">SOLD PLAYERS</button>
-      <button class="tab-chip secondary" data-tab="unsold" onclick="handleTabClick(this)">UNSOLD PLAYERS</button>
+      <button class="tab-chip live active" data-tab="live">LIVE TRACK</button>
+      <button class="tab-chip secondary" data-tab="teams">TEAM DETAILS</button>
+      <button class="tab-chip" data-team="CSK">CSK</button>
+      <button class="tab-chip" data-team="MI">MI</button>
+      <button class="tab-chip" data-team="RCB">RCB</button>
+      <button class="tab-chip" data-team="KKR">KKR</button>
+      <button class="tab-chip" data-team="SRH">SRH</button>
+      <button class="tab-chip" data-team="RR">RR</button>
+      <button class="tab-chip" data-team="GT">GT</button>
+      <button class="tab-chip" data-team="PBKS">PBKS</button>
+      <button class="tab-chip" data-team="DC">DC</button>
+      <button class="tab-chip" data-team="LSG">LSG</button>
+      <button class="tab-chip secondary" data-tab="sold">SOLD PLAYERS</button>
+      <button class="tab-chip secondary" data-tab="unsold">UNSOLD PLAYERS</button>
     </div>
 
-    <!-- Main Grid: Current Player and Right Column -->
-    <div class="main-grid" id="mainGrid" style="display: none;">
-      <!-- Left: Current Player & Bid -->
+    <!-- Main Grid for Current Player and Right Column -->
+    <div class="main-grid">
+
+      <!-- Left: Current Player & Highest Bid -->
       <div>
         <div class="card" id="currentPlayerCard">
-          <!-- Player Header -->
           <div class="player-card-header">
             <div class="player-card-header-left">
               <span class="live-dot"></span>
               <span class="live-label" id="liveLabel">LIVE</span>
             </div>
-            <div class="player-seq">Player <span id="playerIndex">1</span> of <span id="playerTotal">208</span></div>
+            <div class="player-seq">Player <span id="playerIndex">1</span> of <span id="playerTotal">3</span></div>
           </div>
 
-          <!-- Player Main Content -->
           <div class="player-main">
             <div class="player-photo-frame">
               <span id="playerInitials">DC</span>
@@ -765,7 +730,6 @@ footer {
             </div>
           </div>
 
-          <!-- Bid Card -->
           <div class="bid-card">
             <div class="bid-left">
               <span class="meta-label">Highest Bid:</span>
@@ -773,28 +737,27 @@ footer {
             </div>
             <div class="bid-right">
               <div class="team-logo" id="bidTeamLogo">
-                <span id="bidTeamShort">-</span>
+                <span id="bidTeamShort">N/A</span>
               </div>
               <span class="meta-label">Placed by:</span>
               <p class="team-name" id="bidTeam">No Bids Yet</p>
             </div>
           </div>
 
-          <!-- Interested Teams -->
           <div class="section-title">Interested Teams</div>
           <div class="tag-row" id="interestedTeams">
-            <!-- Dynamic tags added here -->
+            <!-- Dynamically filled -->
           </div>
         </div>
       </div>
 
-      <!-- Right Column: Activity + Team Table -->
+      <!-- Right Column: Activity + Team Snapshot -->
       <div class="right-column">
 
         <div class="card">
           <div class="panel-title">Live Bid Activity</div>
           <ul class="activity-list" id="activityList">
-            <!-- Dynamic activity items added here -->
+            <!-- Dynamically filled -->
           </ul>
         </div>
 
@@ -810,101 +773,840 @@ footer {
                 <th>Purse</th>
               </tr>
             </thead>
-            <tbody id="teamTableBody">
-              <!-- Dynamic rows added here */
+            <tbody>
+              <!-- Dynamically filled -->
             </tbody>
           </table>
         </div>
 
       </div>
+
     </div>
 
-    <!-- Admin Panel (Hidden unless admin logged in) -->
-    <div id="adminPanel" style="display: none;">
-      <h2>Admin Panel</h2>
-      <button onclick="auctionStarted = true; updateAuctionStatus();">Start Auction</button>
-      <!-- Add form for changing team passwords -->
-      <form>
-        <select id="teamSelect">
-          <option>Select Team</option>
-          <!-- Dynamic options -->
-        </select>
-        <input type="password" id="newPassword" placeholder="New Password">
-        <button type="button" onclick="changeTeamPassword()">Update Password</button>
-      </form>
-      <!-- More admin commands as before -->
+    <!-- Player List Section -->
+    <div class="list-section">
+      <div class="list-title">Player List</div>
+      <div class="list-grid" id="playerList">
+        <!-- Dynamically filled -->
+      </div>
     </div>
 
-    <!-- Bidder Panel (Hidden unless bidder logged in) -->
-    <div id="bidderPanel" style="display: none;">
-      <h2>Bidder Panel</h2>
-      <input type="number" placeholder="Bid Amount" id="bidInput">
-      <button onclick="submitBid()">Submit Bid</button>
+    <!-- Team List Section -->
+    <div class="list-section">
+      <div class="list-title">Team List</div>
+      <div class="list-grid" id="teamList">
+        <!-- Dynamically filled */
+      </div>
     </div>
 
+    <!-- Purse List Section (Same as Team Snapshot but Separate) -->
+    <div class="list-section">
+      <div class="list-title">Team Purse List</div>
+      <table class="team-table" id="purseTable">
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Purse (Cr)</th>
+            <th>Players Left</th>
+            <th>Overseas Slots</th>
+            <th>Overall Slots</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Dynamically filled */
+        </tbody>
+      </table>
+    </div>
+
+  </div> <!-- End Viewer Panel -->
+
+  <!-- Admin Panel -->
+  <div id="adminPanel" class="panel admin-panel hidden">
+    <h2 class="admin-title">Admin Control Panel - 30+ Commands</h2>
+    <div class="btn-grid">
+      <button class="admin-btn" onclick="startAuction()">Start Auction</button>
+      <button class="admin-btn" onclick="pauseAuction()">Pause Auction</button>
+      <button class="admin-btn danger" onclick="endAuction()">End Auction</button>
+      <button class="admin-btn" onclick="nextPlayer()">Next Player</button>
+      <button class="admin-btn" onclick="soldPlayer()">Sold Player</button>
+      <button class="admin-btn" onclick="unsoldPlayer()">Unsold Player</button>
+      <button class="admin-btn" onclick="addPlayer()">Add Player</button>
+      <button class="admin-btn" onclick="editBasePrice()">Edit Base Price</button>
+      <button class="admin-btn" onclick="resetBids()">Reset Bids</button>
+      <button class="admin-btn" onclick="setTimer(60)">Set Timer (60s)</button>
+      <button class="admin-btn" onclick="broadcastMessage()">Broadcast Message</button>
+      <button class="admin-btn" onclick="clearChat()">Clear Chat</button>
+      <button class="admin-btn danger" onclick="banUser()">Ban User</button>
+      <button class="admin-btn danger" onclick="kickUser()">Kick User</button>
+      <button class="admin-btn danger" onclick="muteUser()">Mute User</button>
+      <button class="admin-btn" onclick="viewTeams()">View All Teams</button>
+      <button class="admin-btn" onclick="exportData()">Export Data (CSV)</button>
+      <button class="admin-btn" onclick="importPlayers()">Import Players</button>
+      <button class="admin-btn" onclick="setAutoBid()">Set Auto Bid</button>
+      <button class="admin-btn" onclick="enableRTB()">Enable RTB</button>
+      <button class="admin-btn" onclick="disableRTB()">Disable RTB</button>
+      <button class="admin-btn danger" onclick="resetAuction()">Reset Auction</button>
+      <button class="admin-btn" onclick="backupData()">Backup Database</button>
+      <button class="admin-btn" onclick="restoreBackup()">Restore Backup</button>
+      <button class="admin-btn" onclick="viewLogs()">View Logs</button>
+      <button class="admin-btn" onclick="changeTheme()">Change Theme</button>
+      <button class="admin-btn" onclick="setSoundEffects()">Set Sound Effects</button>
+      <button class="admin-btn" onclick="generateReport()">Generate Report</button>
+      <button class="admin-btn danger" onclick="forceEnd()">FORCE END AUCTION</button>
+      <button class="admin-btn" onclick="toggleLiveMode()">Toggle Live Mode</button>
+    </div>
+
+    <!-- Change Team Password Form -->
+    <div class="change-password-form">
+      <h3>Change Team Password</h3>
+      <select id="teamSelect">
+        <option value="">Select Team</option>
+      </select>
+      <input type="password" id="newPassword" placeholder="New Password" />
+      <button class="admin-btn" onclick="changeTeamPassword()">Update Password</button>
+    </div>
+  </div>
+
+  <!-- Bidder Panel -->
+  <div id="bidderPanel" class="panel bidder-panel hidden">
+    <h2 class="bidder-title">Bidder Dashboard - <span id="bidderTeamName"></span></h2>
+    <p>Purse: <span id="bidderPurse"></span> Cr | Slots Left: <span id="bidderSlots"></span></p>
+    <div class="bid-input">
+      <input type="number" id="bidAmount" placeholder="Enter Bid Amount (Cr)" step="0.25" min="0" />
+      <button class="bid-btn" onclick="placeBid()">Place Bid</button>
+    </div>
+    <div class="section-title">Your Bid History</div>
+    <ul id="bidderHistory" class="activity-list"></ul>
   </div>
 
 </div>
 
 <script>
-// Full JS with fixes, state management, and expanded functions
+// =========================================
+// DATA: PLAYERS AND TEAMS (HIDDEN PASSWORDS)
+// =========================================
+const playerData = {
+  "players": [
+    {"name": "Devon Conway", "country": "New Zealand", "base_price_crore": 2, "role": "batsman"},
+    {"name": "Jake Fraser-McGurk", "country": "Australia", "base_price_crore": 2, "role": "batsman"},
+    {"name": "Cameron Green", "country": "Australia", "base_price_crore": 2, "role": "all-rounder"},
+    {"name": "David Miller", "country": "South Africa", "base_price_crore": 2, "role": "batsman"},
+    {"name": "Gus Atkinson", "country": "England", "base_price_crore": 2, "role": "bowler"},
+    {"name": "Wanindu Hasaranga", "country": "Sri Lanka", "base_price_crore": 2, "role": "all-rounder"},
+    {"name": "Venkatesh Iyer", "country": "India", "base_price_crore": 2, "role": "all-rounder"},
+    {"name": "Liam Livingstone", "country": "England", "base_price_crore": 2, "role": "all-rounder"},
+    {"name": "Ben Duckett", "country": "England", "base_price_crore": 2, "role": "batsman"},
+    {"name": "Jamie Smith", "country": "England", "base_price_crore": 2, "role": "wicketkeeper"},
+    {"name": "Gerald Coetzee", "country": "South Africa", "base_price_crore": 2, "role": "bowler"},
+    {"name": "Jacob Duffy", "country": "New Zealand", "base_price_crore": 2, "role": "bowler"},
+    {"name": "Anrich Nortje", "country": "South Africa", "base_price_crore": 2, "role": "bowler"},
+    {"name": "Matheesha Pathirana", "country": "Sri Lanka", "base_price_crore": 2, "role": "bowler"},
+    {"name": "Ravi Bishnoi", "country": "India", "base_price_crore": 2, "role": "bowler"},
+    {"name": "Akeal Hosein", "country": "West Indies", "base_price_crore": 2, "role": "all-rounder"},
+    {"name": "Mujeeb Rahman", "country": "Afghanistan", "base_price_crore": 2, "role": "bowler"},
+    {"name": "Maheesh Theekshana", "country": "Sri Lanka", "base_price_crore": 2, "role": "bowler"},
+    {"name": "Steve Smith", "country": "Australia", "base_price_crore": 2, "role": "batsman"},
+    {"name": "Sean Abbott", "country": "Australia", "base_price_crore": 2, "role": "all-rounder"},
+    {"name": "Michael Bracewell", "country": "New Zealand", "base_price_crore": 2, "role": "all-rounder"},
+    {"name": "Jason Holder", "country": "West Indies", "base_price_crore": 2, "role": "all-rounder"},
+    {"name": "Daryl Mitchell", "country": "New Zealand", "base_price_crore": 2, "role": "all-rounder"},
+    {"name": "Tom Banton", "country": "England", "base_price_crore": 2, "role": "batsman"},
+    {"name": "Shai Hope", "country": "West Indies", "base_price_crore": 2, "role": "batsman"},
+    {"name": "Josh Inglis", "country": "Australia", "base_price_crore": 2, "role": "wicketkeeper"},
+    {"name": "Kyle Jamieson", "country": "New Zealand", "base_price_crore": 2, "role": "all-rounder"},
+    {"name": "Adam Milne", "country": "New Zealand", "base_price_crore": 2, "role": "bowler"},
+    {"name": "Lungisani Ngidi", "country": "South Africa", "base_price_crore": 2, "role": "bowler"},
+    {"name": "William Orourke", "country": "New Zealand", "base_price_crore": 2, "role": "bowler"},
+    {"name": "Mustafizur Rahman", "country": "Bangladesh", "base_price_crore": 2, "role": "bowler"},
+    {"name": "Cooper Connolly", "country": "Australia", "base_price_crore": 2, "role": "all-rounder"},
+    {"name": "Tom Curran", "country": "England", "base_price_crore": 2, "role": "all-rounder"},
+    {"name": "Daniel Lawrence", "country": "England", "base_price_crore": 2, "role": "batsman"},
+    {"name": "Alzarri Joseph", "country": "West Indies", "base_price_crore": 2, "role": "bowler"},
+    {"name": "Naveen Ul Haq", "country": "Afghanistan", "base_price_crore": 2, "role": "bowler"},
+    {"name": "Liam Dawson", "country": "England", "base_price_crore": 2, "role": "all-rounder"},
+    {"name": "Rahmanullah Gurbaz", "country": "Afghanistan", "base_price_crore": 1.5, "role": "wicketkeeper-batsman"},
+    {"name": "Spencer Johnson", "country": "Australia", "base_price_crore": 1.5, "role": "bowler"},
+    {"name": "Matt Henry", "country": "New Zealand", "base_price_crore": 1.5, "role": "bowler"},
+    {"name": "Matthew Short", "country": "Australia", "base_price_crore": 1.5, "role": "all-rounder"},
+    {"name": "Saqib Mahmood", "country": "England", "base_price_crore": 1.5, "role": "bowler"},
+    {"name": "Riley Meredith", "country": "Australia", "base_price_crore": 1.5, "role": "bowler"},
+    {"name": "Jhye Richardson", "country": "Australia", "base_price_crore": 1.5, "role": "bowler"},
+    {"name": "Tim Seifert", "country": "New Zealand", "base_price_crore": 1.5, "role": "wicketkeeper-batsman"},
+    {"name": "Beau Webster", "country": "Australia", "base_price_crore": 1.25, "role": "all-rounder"},
+    {"name": "Roston Chase", "country": "West Indies", "base_price_crore": 1.25, "role": "all-rounder"},
+    {"name": "Kyle Mayers", "country": "West Indies", "base_price_crore": 1.25, "role": "all-rounder"},
+    {"name": "Olly Stone", "country": "England", "base_price_crore": 1.25, "role": "bowler"},
+    {"name": "Wiaan Mulder", "country": "South Africa", "base_price_crore": 1, "role": "all-rounder"},
+    {"name": "Finn Allen", "country": "New Zealand", "base_price_crore": 1, "role": "batsman"},
+    {"name": "Jonny Bairstow", "country": "England", "base_price_crore": 1, "role": "wicketkeeper-batsman"},
+    {"name": "Quinton De Kock", "country": "South Africa", "base_price_crore": 1, "role": "wicketkeeper-batsman"},
+    {"name": "Akash Deep", "country": "India", "base_price_crore": 1, "role": "bowler"},
+    {"name": "Fazalhaq Farooqi", "country": "Afghanistan", "base_price_crore": 1, "role": "bowler"},
+    {"name": "Rahul Chahar", "country": "India", "base_price_crore": 1, "role": "bowler"},
+    {"name": "Tabraiz Shamsi", "country": "South Africa", "base_price_crore": 1, "role": "bowler"},
+    {"name": "Reeza Hendricks", "country": "South Africa", "base_price_crore": 1, "role": "batsman"},
+    {"name": "Daniel Sams", "country": "Australia", "base_price_crore": 1, "role": "all-rounder"},
+    {"name": "Ben Dwarshuis", "country": "Australia", "base_price_crore": 1, "role": "bowler"},
+    {"name": "Kusal Perera", "country": "Sri Lanka", "base_price_crore": 1, "role": "wicketkeeper-batsman"},
+    {"name": "Umesh Yadav", "country": "India", "base_price_crore": 1, "role": "bowler"},
+    {"name": "Mohammad Waqar Salamkheil", "country": "Afghanistan", "base_price_crore": 1, "role": "bowler"},
+    {"name": "George Linde", "country": "South Africa", "base_price_crore": 1, "role": "all-rounder"},
+    {"name": "Gulbadin Naib", "country": "Afghanistan", "base_price_crore": 1, "role": "all-rounder"},
+    {"name": "William Sutherland", "country": "Australia", "base_price_crore": 1, "role": "all-rounder"},
+    {"name": "Joshua Tongue", "country": "England", "base_price_crore": 1, "role": "bowler"},
+    {"name": "Dwaine Pretorius", "country": "South Africa", "base_price_crore": 1, "role": "all-rounder"},
+    {"name": "Charith Asalanka", "country": "Sri Lanka", "base_price_crore": 1, "role": "batsman"},
+    {"name": "Sarfaraz Khan", "country": "India", "base_price_crore": 0.75, "role": "batsman"},
+    {"name": "Prithvi Shaw", "country": "India", "base_price_crore": 0.75, "role": "batsman"},
+    {"name": "Deepak Hooda", "country": "India", "base_price_crore": 0.75, "role": "all-rounder"},
+    {"name": "K.S. Bharat", "country": "India", "base_price_crore": 0.75, "role": "wicketkeeper"},
+    {"name": "Shivam Mavi", "country": "India", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Mayank Agarawal", "country": "India", "base_price_crore": 0.75, "role": "batsman"},
+    {"name": "Sediqullah Atal", "country": "Afghanistan", "base_price_crore": 0.75, "role": "all-rounder"},
+    {"name": "Ackeem Auguste", "country": "West Indies", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Pathum Nissanka", "country": "Sri Lanka", "base_price_crore": 0.75, "role": "batsman"},
+    {"name": "Tim Robinson", "country": "New Zealand", "base_price_crore": 0.75, "role": "batsman"},
+    {"name": "Rahul Tripathi", "country": "India", "base_price_crore": 0.75, "role": "batsman"},
+    {"name": "Jordan Cox", "country": "England", "base_price_crore": 0.75, "role": "batsman"},
+    {"name": "Benjamin McDermott", "country": "Australia", "base_price_crore": 0.75, "role": "batsman"},
+    {"name": "Kusal Mendis", "country": "Sri Lanka", "base_price_crore": 0.75, "role": "batsman"},
+    {"name": "Chetan Sakariya", "country": "India", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Kuldeep Sen", "country": "India", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Qais Ahmad", "country": "Afghanistan", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Rishad Hossain", "country": "Bangladesh", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Viyaskanth Vijayakanth", "country": "Sri Lanka", "base_price_crore": 0.75, "role": "all-rounder"},
+    {"name": "Rehan Ahmed", "country": "England", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Taskin Ahmed", "country": "Bangladesh", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Richard Gleeson", "country": "England", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Shamar Joseph", "country": "West Indies", "base_price_crore": 0.75, "role": "all-rounder"},
+    {"name": "Navdeep Saini", "country": "India", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Luke Wood", "country": "England", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Muhammad Abbas", "country": "New Zealand", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "George Garton", "country": "England", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Nathan Smith", "country": "New Zealand", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Dunith Wellalage", "country": "Sri Lanka", "base_price_crore": 0.75, "role": "all-rounder"},
+    {"name": "Tanzim Hasan Sakib", "country": "Bangladesh", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Matthew Potts", "country": "England", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Nahid Rana", "country": "Bangladesh", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Sandeep Warrier", "country": "India", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Wesley Agar", "country": "Australia", "base_price_crore": 0.75, "role": "all-rounder"},
+    {"name": "Binura Fernando", "country": "Sri Lanka", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Md Shoriful Islam", "country": "Bangladesh", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Joshua Little", "country": "Ireland", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Obed McCoy", "country": "West Indies", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Billy Stanlake", "country": "Australia", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Zak Foulkes", "country": "New Zealand", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Dasun Shanaka", "country": "Sri Lanka", "base_price_crore": 0.75, "role": "all-rounder"},
+    {"name": "Bevon-John Jacobs", "country": "New Zealand", "base_price_crore": 0.75, "role": "bowler"},
+    {"name": "Ethan Bosch", "country": "South Africa", "base_price_crore": 0.75, "role": "all-rounder"},
+    {"name": "Chris Green", "country": "Australia", "base_price_crore": 0.75, "role": "all-rounder"},
+    {"name": "Mahipal Lomror", "country": "India", "base_price_crore": 0.5, "role": "all-rounder"},
+    {"name": "Tushar Deshpande", "country": "India", "base_price_crore": 0.5, "role": "bowler"},
+    {"name": "Yash Dayal", "country": "India", "base_price_crore": 0.5, "role": "bowler"},
+    {"name": "Joe Clarke", "country": "England", "base_price_crore": 0.5, "role": "batsman"},
+    {"name": "Jack Edwards", "country": "Australia", "base_price_crore": 0.5, "role": "batsman"},
+    {"name": "Rajvardhan Hangargekar", "country": "India", "base_price_crore": 0.4, "role": "all-rounder"},
+    {"name": "K.M Asif", "country": "India", "base_price_crore": 0.4, "role": "bowler"},
+    {"name": "Shubham Agrawal", "country": "India", "base_price_crore": 0.4, "role": "bowler"},
+    {"name": "Jalaj Saxena", "country": "India", "base_price_crore": 0.4, "role": "all-rounder"},
+    {"name": "Tom Moores", "country": "England", "base_price_crore": 0.4, "role": "wicketkeeper-batsman"},
+    {"name": "Arab Gul", "country": "Afghanistan", "base_price_crore": 0.4, "role": "bowler"},
+    {"name": "Nikhil Chaudhary", "country": "India", "base_price_crore": 0.4, "role": "bowler"},
+    // Additional 0.3 Cr players as group
+    {"name": "Several Indian players with base price 0.3 crore", "base_price_crore": 0.3, "role": "various", "players": [
+      "Aarya Desai", "Yash Dhull", "Abhinav Manohar", "Anmolpreet Singh", "Atharva Taide",
+      "Abhinav Tejrana", "Auqib Dar", "Tanush Kotian", "Shivang Kumar", "Vijay Shankar",
+      "Sanvin Singh", "Edhen Tom", "Prashant Veer", "Ruchit Ahir", "Vansh Bedi",
+      "Mukul Choudhary", "Tushar Raheja", "Kartik Sharma", "Tejasvi Singh", "Raj Limbani",
+      "Akash Madhwal", "Sushant Mishra", "Ashok Sharma", "Simarjeet Singh", "Naman Tiwari",
+      "Tyagi", "Yash Raj Punja", "Vignesh Puthur", "Karn Sharma", "Shivam Shukla",
+      "Kumar Kartikeya Singh", "Prashant Solanki", "Wahidullah Zadran", "Ankit Kumar",
+      "Rohan Kunnummal", "Danish Malewar", "Pukhraj Mann", "Salman Nizar", "Aman Rao Perala",
+      "Akshat Raghuwanshi", "Manan Vohra", "Yuvraj Chaudhary", "Satvik Deswal", "Aman Khan",
+      "Darshan Nalkande", "Vicky Ostwal", "Sairaj Patil", "Suyash Prabhudessai", "Mayank Rawat",
+      "Harsh Tyagi", "Mangesh Yadav", "Salil Arora", "Ricky Bhui", "Rahul Buddhi",
+      "Saurav Chuahan", "Yashvardhan Dalal", "Abhishek Pathak", "Kunal Rathore", "Ravi Singh",
+      "Sakib Hussain", "Mohammad Izhar", "Vidwath Kaverappa", "Vijay Kumar", "Vidyadhar Patil",
+      "PV.Satyanarayana Raju", "Onkar Tarmale", "Prithviraj Yarra", "Murugan Ashwin", "Tejas Baroka",
+      "KC Cariappa", "Kartik Chadha", "Pravin Dubey", "Mohit Rathee", "Himanshu Sharma",
+      "Bailapudi Yeswanth", "Kunal Chandela", "Ayush Doseja", "Qamran Iqbal", "M.Dheera Kumar",
+      "Bhanu Pania", "Sahil Parakh", "Arsh Kabin Ranga", "Adarsh Singh", "Manoj Bhandage",
+      "Mayank Dagar", "Raghav Goyal", "Manvanth Kumar", "Abid Mushtaq", "Atit Sheth",
+      "Hritik Shokeen", "Jagadeesha Suchith", "Tanay Thyagarajann", "Connor Esterhuizen", "Ajitesh Guruswamy",
+      "Siddharth Joon", "Bipin Saurabh", "Vishnu Solanki", "Hardik Tamore", "Money Grewal"
+    ]}
+  ]
+};
 
-let auctionStarted = false; // Auction state
+let teamData = [
+  {
+    "team_name": "Kolkata Knight Riders",
+    "username": "kkr_official_26",
+    "password": "KKRpass@2026",
+    "purse_crores": 64.3,
+    "players_left": 13,
+    "overseas_slots_left": 4,
+    "overall_slots_left": 13
+  },
+  {
+    "team_name": "Mumbai Indians",
+    "username": "mi_team2026",
+    "password": "MI@Auction26",
+    "purse_crores": 2.75,
+    "players_left": 5,
+    "overseas_slots_left": 2,
+    "overall_slots_left": 5
+  },
+  {
+    "team_name": "Lucknow Super Giants",
+    "username": "lsg_auction",
+    "password": "LSG#2026Pass",
+    "purse_crores": 22.95,
+    "players_left": 6,
+    "overseas_slots_left": 3,
+    "overall_slots_left": 6
+  },
+  {
+    "team_name": "Royal Challengers Bengaluru",
+    "username": "rcb_fanclub_26",
+    "password": "RCBpass$2026",
+    "purse_crores": 16.4,
+    "players_left": 8,
+    "overseas_slots_left": 4,
+    "overall_slots_left": 8
+  },
+  {
+    "team_name": "Rajasthan Royals",
+    "username": "rr_fans2026",
+    "password": "RR!2026#Pass",
+    "purse_crores": 16.05,
+    "players_left": 9,
+    "overseas_slots_left": 4,
+    "overall_slots_left": 9
+  },
+  {
+    "team_name": "Chennai Super Kings",
+    "username": "csk_auction_team",
+    "password": "CSK_2026*Pass",
+    "purse_crores": 43.4,
+    "players_left": 9,
+    "overseas_slots_left": 3,
+    "overall_slots_left": 9
+  },
+  {
+    "team_name": "Delhi Capitals",
+    "username": "dc_team_2026",
+    "password": "DCauction@26",
+    "purse_crores": 21.8,
+    "players_left": 8,
+    "overseas_slots_left": 4,
+    "overall_slots_left": 8
+  },
+  {
+    "team_name": "Punjab Kings",
+    "username": "pbks_2026",
+    "password": "PBKS2026!pass",
+    "purse_crores": 11.5,
+    "players_left": 4,
+    "overseas_slots_left": 2,
+    "overall_slots_left": 4
+  },
+  {
+    "team_name": "Sunrisers Hyderabad",
+    "username": "srh_official26",
+    "password": "SRH_2026*pass",
+    "purse_crores": 25.5,
+    "players_left": 10,
+    "overseas_slots_left": 4,
+    "overall_slots_left": 10
+  },
+  {
+    "team_name": "Gujarat Titans",
+    "username": "gt_auction_team",
+    "password": "GT2026#pass",
+    "purse_crores": 12.9,
+    "players_left": 5,
+    "overseas_slots_left": 2,
+    "overall_slots_left": 5
+  }
+];
 
-// Update auction status UI
-function updateAuctionStatus() {
-  if (auctionStarted) {
-    document.getElementById('auctionStatusMessage').style.display = 'none';
-    document.getElementById('mainGrid').style.display = 'grid';
-    document.getElementById('auctionStatusLabel').textContent = 'LIVE';
-    // Start timer, etc.
+// Auction State Variables
+let isAuctionStarted = false;
+let currentPlayerIndex = 0;
+let highestBid = 0;
+let highestBidTeam = null;
+let activityLog = [];
+let soldPlayers = [];
+let unsoldPlayers = [];
+let currentUser = null; // Logged in user (team or admin)
+let timerSeconds = 45;
+let timerInterval;
+
+// =========================================
+// INITIALIZATION FUNCTIONS
+// =========================================
+function init() {
+  populatePlayerList();
+  populateTeamList();
+  populatePurseTable();
+  populateTeamSelectForAdmin();
+  renderCurrentPlayer();
+  renderActivityLog();
+  renderTeamTable();
+  checkAuctionStatus();
+  startTimer();
+}
+
+// Populate Player List on Main Page
+function populatePlayerList() {
+  const playerList = document.getElementById('playerList');
+  playerList.innerHTML = '';
+  playerData.players.forEach(player => {
+    const item = document.createElement('div');
+    item.className = 'list-item';
+    item.innerHTML = `
+      <h3>${player.name}</h3>
+      <p>Country: ${player.country || 'N/A'}</p>
+      <p>Base Price: ₹ ${player.base_price_crore} Cr</p>
+      <p>Role: ${player.role}</p>
+    `;
+    if (player.players) {
+      item.innerHTML += `<p>Additional Players: ${player.players.join(', ')}</p>`;
+    }
+    playerList.appendChild(item);
+  });
+}
+
+// Populate Team List on Main Page (Hide Passwords)
+function populateTeamList() {
+  const teamList = document.getElementById('teamList');
+  teamList.innerHTML = '';
+  teamData.forEach(team => {
+    const item = document.createElement('div');
+    item.className = 'list-item';
+    item.innerHTML = `
+      <h3>${team.team_name}</h3>
+      <p>Username: ${team.username}</p>
+      <p>Purse: ₹ ${team.purse_crores} Cr</p>
+      <p>Players Left: ${team.players_left}</p>
+    `;
+    teamList.appendChild(item);
+  });
+}
+
+// Populate Purse Table
+function populatePurseTable() {
+  const tbody = document.querySelector('#purseTable tbody');
+  tbody.innerHTML = '';
+  teamData.forEach(team => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${team.team_name}</td>
+      <td>₹ ${team.purse_crores}</td>
+      <td>${team.players_left}</td>
+      <td>${team.overseas_slots_left}</td>
+      <td>${team.overall_slots_left}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// Populate Team Select for Admin Password Change
+function populateTeamSelectForAdmin() {
+  const select = document.getElementById('teamSelect');
+  teamData.forEach(team => {
+    const option = document.createElement('option');
+    option.value = team.username;
+    option.textContent = team.team_name;
+    select.appendChild(option);
+  });
+}
+
+// Render Current Player
+function renderCurrentPlayer() {
+  const player = playerData.players[currentPlayerIndex];
+  document.getElementById('playerInitials').textContent = player.name.split(' ').map(n => n[0]).join('');
+  document.getElementById('playerName').textContent = player.name;
+  document.getElementById('basePrice').textContent = `₹ ${player.base_price_crore} Cr`;
+  document.getElementById('country').textContent = player.country || 'N/A';
+  document.getElementById('category').textContent = player.role;
+  document.getElementById('highestBid').textContent = `₹ ${highestBid || player.base_price_crore} Cr`;
+  document.getElementById('bidTeamShort').textContent = highestBidTeam ? highestBidTeam.slice(0,3).toUpperCase() : 'N/A';
+  document.getElementById('bidTeam').textContent = highestBidTeam || 'No Bids Yet';
+
+  const interested = document.getElementById('interestedTeams');
+  interested.innerHTML = '';
+  // Simulate interested teams
+  teamData.slice(0,3).forEach(t => {
+    const span = document.createElement('span');
+    span.className = 'tag-pill';
+    span.textContent = t.team_name.slice(0,3).toUpperCase();
+    interested.appendChild(span);
+  });
+}
+
+// Render Activity Log
+function renderActivityLog() {
+  const list = document.getElementById('activityList');
+  list.innerHTML = '';
+  activityLog.forEach(log => {
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="activity-team">${log.team}</span><span class="activity-amount">₹ ${log.amount} Cr</span>`;
+    list.appendChild(li);
+  });
+}
+
+// Render Team Table (Snapshot)
+function renderTeamTable() {
+  const tbody = document.querySelector('#teamTable tbody');
+  tbody.innerHTML = '';
+  teamData.forEach(t => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${t.team_name.slice(0,3).toUpperCase()}</td>
+      <td>${t.players_left}</td>
+      <td>${t.overall_slots_left}</td>
+      <td>${t.overseas_slots_left}</td>
+      <td>₹ ${t.purse_crores} Cr</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// Check Auction Status
+function checkAuctionStatus() {
+  const message = document.getElementById('auctionStatusMessage');
+  const mainGrid = document.querySelector('.main-grid');
+  const listSections = document.querySelectorAll('.list-section');
+  if (!isAuctionStarted) {
+    message.classList.remove('hidden');
+    mainGrid.classList.add('hidden');
+    listSections.forEach(s => s.classList.add('hidden'));
   } else {
-    document.getElementById('auctionStatusMessage').style.display = 'block';
-    document.getElementById('mainGrid').style.display = 'none';
-    document.getElementById('auctionStatusLabel').textContent = 'OFFLINE';
+    message.classList.add('hidden');
+    mainGrid.classList.remove('hidden');
+    listSections.forEach(s => s.classList.remove('hidden'));
   }
 }
 
-// Handle tab click - now works in viewer mode
-function handleTabClick(tab) {
-  document.querySelectorAll('.tab-chip').forEach(t => t.classList.remove('active'));
-  tab.classList.add('active');
-  // Logic for tab content switch
-  const tabType = tab.getAttribute('data-tab') || tab.getAttribute('data-team');
-  // Example: alert('Switched to ' + tabType);
-  // Add real logic for switching content
+// Start Timer
+function startTimer() {
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    if (timerSeconds < 0) {
+      timerSeconds = 45;
+      // Simulate timer end, move to next player
+      nextPlayer();
+    }
+    const m = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+    const s = String(timerSeconds % 60).padStart(2, '0');
+    document.getElementById('roundTimer').textContent = `${m}:${s}`;
+  }, 1000);
 }
 
-// Handle login
+// =========================================
+// LOGIN HANDLER
+// =========================================
 function handleLogin() {
-  const username = document.getElementById('username').value;
+  const username = document.getElementById('username').value.trim();
   const password = document.getElementById('password').value;
-  // Validation logic
-  if (username === 'qwertyuiop' && password === 'bluezone0025') {
-    document.getElementById('adminPanel').style.display = 'block';
-  } // Add more for bidder
+
+  const adminUser = 'qwertyuiop';
+  const adminPass = 'bluezone0025';
+
+  if (username === adminUser && password === adminPass) {
+    currentUser = 'admin';
+    document.getElementById('viewerPanel').classList.add('hidden');
+    document.getElementById('loginPanel').classList.add('hidden');
+    document.getElementById('adminPanel').classList.remove('hidden');
+    alert('Logged in as Admin!');
+  } else {
+    const team = teamData.find(t => t.username === username && t.password === password);
+    if (team) {
+      currentUser = team.team_name;
+      document.getElementById('viewerPanel').classList.add('hidden');
+      document.getElementById('loginPanel').classList.add('hidden');
+      document.getElementById('bidderPanel').classList.remove('hidden');
+      document.getElementById('bidderTeamName').textContent = team.team_name;
+      document.getElementById('bidderPurse').textContent = team.purse_crores;
+      document.getElementById('bidderSlots').textContent = team.overall_slots_left;
+      alert(`Logged in as ${team.team_name}!`);
+    } else {
+      alert('Invalid credentials!');
+    }
+  }
 }
 
-// Change team password
+// =========================================
+// ADMIN COMMANDS
+// =========================================
+function startAuction() {
+  isAuctionStarted = true;
+  checkAuctionStatus();
+  alert('Auction Started!');
+}
+
+function pauseAuction() {
+  clearInterval(timerInterval);
+  alert('Auction Paused!');
+}
+
+function endAuction() {
+  isAuctionStarted = false;
+  checkAuctionStatus();
+  clearInterval(timerInterval);
+  alert('Auction Ended!');
+}
+
+function nextPlayer() {
+  currentPlayerIndex = (currentPlayerIndex + 1) % playerData.players.length;
+  highestBid = 0;
+  highestBidTeam = null;
+  activityLog = [];
+  renderCurrentPlayer();
+  renderActivityLog();
+  timerSeconds = 45;
+  alert('Moved to Next Player!');
+}
+
+function soldPlayer() {
+  soldPlayers.push(playerData.players[currentPlayerIndex]);
+  nextPlayer();
+  alert('Player Sold!');
+}
+
+function unsoldPlayer() {
+  unsoldPlayers.push(playerData.players[currentPlayerIndex]);
+  nextPlayer();
+  alert('Player Unsold!');
+}
+
+function addPlayer() {
+  const name = prompt('New Player Name:');
+  const country = prompt('Country:');
+  const base = parseFloat(prompt('Base Price (Cr):'));
+  const role = prompt('Role:');
+  if (name && base && role) {
+    playerData.players.push({name, country, base_price_crore: base, role});
+    populatePlayerList();
+    alert('Player Added!');
+  }
+}
+
+function editBasePrice() {
+  const newPrice = parseFloat(prompt('New Base Price for Current Player (Cr):'));
+  if (!isNaN(newPrice)) {
+    playerData.players[currentPlayerIndex].base_price_crore = newPrice;
+    renderCurrentPlayer();
+    alert('Base Price Updated!');
+  }
+}
+
+function resetBids() {
+  highestBid = 0;
+  highestBidTeam = null;
+  activityLog = [];
+  renderCurrentPlayer();
+  renderActivityLog();
+  alert('Bids Reset!');
+}
+
+function setTimer(seconds) {
+  timerSeconds = seconds;
+  alert(`Timer Set to ${seconds}s!`);
+}
+
+function broadcastMessage() {
+  const msg = prompt('Broadcast Message:');
+  if (msg) alert(`Broadcast: ${msg}`);
+}
+
+function clearChat() {
+  activityLog = [];
+  renderActivityLog();
+  alert('Chat Cleared!');
+}
+
+function banUser() {
+  const user = prompt('Username to Ban:');
+  if (user) alert(`${user} Banned!`);
+}
+
+function kickUser() {
+  const user = prompt('Username to Kick:');
+  if (user) alert(`${user} Kicked!`);
+}
+
+function muteUser() {
+  const user = prompt('Username to Mute:');
+  if (user) alert(`${user} Muted!`);
+}
+
+function viewTeams() {
+  alert(JSON.stringify(teamData, null, 2));
+}
+
+function exportData() {
+  alert('Data Exported (Simulated CSV)');
+}
+
+function importPlayers() {
+  alert('Players Imported (Simulated)');
+}
+
+function setAutoBid() {
+  alert('Auto Bid Set!');
+}
+
+function enableRTB() {
+  alert('RTB Enabled!');
+}
+
+function disableRTB() {
+  alert('RTB Disabled!');
+}
+
+function resetAuction() {
+  isAuctionStarted = false;
+  currentPlayerIndex = 0;
+  soldPlayers = [];
+  unsoldPlayers = [];
+  activityLog = [];
+  highestBid = 0;
+  highestBidTeam = null;
+  checkAuctionStatus();
+  renderAll();
+  alert('Auction Reset!');
+}
+
+function backupData() {
+  alert('Data Backed Up!');
+}
+
+function restoreBackup() {
+  alert('Backup Restored!');
+}
+
+function viewLogs() {
+  alert('Logs: ' + activityLog.join('\n'));
+}
+
+function changeTheme() {
+  document.body.style.background = '#000';
+  alert('Theme Changed to Dark!');
+}
+
+function setSoundEffects() {
+  alert('Sound Effects Set!');
+}
+
+function generateReport() {
+  alert('Report Generated!');
+}
+
+function forceEnd() {
+  endAuction();
+  alert('Forced End!');
+}
+
+function toggleLiveMode() {
+  document.getElementById('auctionStatusLabel').textContent = document.getElementById('auctionStatusLabel').textContent === 'LIVE' ? 'OFFLINE' : 'LIVE';
+  alert('Live Mode Toggled!');
+}
+
+// Change Team Password
 function changeTeamPassword() {
-  const team = document.getElementById('teamSelect').value;
+  const username = document.getElementById('teamSelect').value;
   const newPass = document.getElementById('newPassword').value;
-  // Update CREDENTIALS and localStorage
-  localStorage.setItem(team, newPass);
-  alert('Password updated for ' + team);
+  if (username && newPass) {
+    const team = teamData.find(t => t.username === username);
+    if (team) {
+      team.password = newPass;
+      alert(`Password for ${team.team_name} updated to ${newPass}!`);
+    }
+  } else {
+    alert('Select team and enter new password!');
+  }
 }
 
-// Submit bid
-function submitBid() {
-  const amount = document.getElementById('bidInput').value;
-  // Logic to submit bid
-  alert('Bid submitted: ' + amount);
+// =========================================
+// BIDDER FUNCTIONS
+// =========================================
+function placeBid() {
+  if (!isAuctionStarted) {
+    alert('Auction not started!');
+    return;
+  }
+  const amount = parseFloat(document.getElementById('bidAmount').value);
+  if (isNaN(amount) || amount <= highestBid) {
+    alert('Invalid or low bid!');
+    return;
+  }
+  const team = teamData.find(t => t.team_name === currentUser);
+  if (team && amount > team.purse_crores) {
+    alert('Insufficient Purse!');
+    return;
+  }
+  highestBid = amount;
+  highestBidTeam = currentUser;
+  activityLog.push({team: currentUser, amount});
+  renderCurrentPlayer();
+  renderActivityLog();
+  // Update purse (simulate)
+  if (team) team.purse_crores -= amount - (highestBid - amount); // Simplified
+  document.getElementById('bidderPurse').textContent = team.purse_crores;
+  alert('Bid Placed!');
 }
 
-// Init
-updateAuctionStatus();
-// Add more init code...
+// Render Bidder History (Simulated)
+function renderBidderHistory() {
+  const list = document.getElementById('bidderHistory');
+  list.innerHTML = '';
+  activityLog.filter(log => log.team === currentUser).forEach(log => {
+    const li = document.createElement('li');
+    li.innerHTML = `<span>${log.team}</span><span>₹ ${log.amount} Cr</span>`;
+    list.appendChild(li);
+  });
+}
 
+// =========================================
+// VIEW SWITCH HANDLER
+// =========================================
+document.querySelectorAll('.switch-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.switch-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const view = btn.dataset.view;
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    if (view === 'login') {
+      document.getElementById('loginPanel').classList.add('active');
+    } else {
+      document.getElementById('viewerPanel').classList.add('active');
+    }
+  });
+});
+
+// Tab Click Handler
+document.querySelectorAll('.tab-chip').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab-chip').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const team = tab.dataset.team;
+    if (team) {
+      // Simulate team-specific view
+      alert(`Showing details for ${team}`);
+    } else if (tab.dataset.tab === 'sold') {
+      alert('Sold Players: ' + soldPlayers.map(p => p.name).join(', '));
+    } else if (tab.dataset.tab === 'unsold') {
+      alert('Unsold Players: ' + unsoldPlayers.map(p => p.name).join(', '));
+    }
+  });
+});
+
+// Init on Load
+window.onload = init;
 </script>
+
 </body>
 </html>
