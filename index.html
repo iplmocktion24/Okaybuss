@@ -362,4 +362,82 @@ function submitPassword(){
 
 function renderTeamsTable(){
   const tbody=document.querySelector('#teamTable tbody');
-  tbody.innerHT
+  tbody.innerHTML='';
+  teams.forEach(t=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td style="font-size:2.5rem;font-weight:900;color:${getTeamColor(t.team_name)};">${t.team_name.split(' ')[0]}</td><td>₹${t.purse_crores.toFixed(1)}Cr</td><td>${t.overall_slots_left}</td><td>${t.overseas_slots_left}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function getTeamColor(name){
+  const colors={'Chennai':'var(--csk)','Mumbai':'var(--mi)','Lucknow':'var(--lsg)','Royal':'var(--rcb)','Rajasthan':'var(--rr)','Delhi':'var(--dc)','Punjab':'var(--pbks)','Sunrisers':'var(--srh)','Gujarat':'var(--gt)','Kolkata':'var(--kkr)'};
+  return colors[name.split(' ')[0]]||'var(--blue)';
+}
+
+function updateTeamDisplay(){
+  document.getElementById('teamPurse').textContent=`₹${loggedInTeam.purse_crores.toFixed(1)} Cr`;
+  document.getElementById('teamSlots').textContent=loggedInTeam.overall_slots_left;
+}
+
+function showPlayer(idx){
+  const p=players[idx]||players[0];
+  currentIndex=idx;
+  document.getElementById('playerName').textContent=p.name;
+  document.getElementById('playerInfo').textContent=`${p.role?.toUpperCase()} • ${p.country} • Base: ₹${p.base_price_crore?.toFixed(2)} Cr`;
+  document.getElementById('playerPhoto').textContent=p.initials;
+  document.getElementById('currentBid').textContent=`₹ ${p.highestBid?.toFixed(2)} Cr`;
+  document.getElementById('bidTeamName').textContent=p.bidTeam;
+  document.getElementById('bidTeamLogo').textContent=p.bidTeamShort;
+  renderTeamsTable();
+}
+
+function teamBid(amount){
+  if(!loggedInTeam){alert('❌ Login Krle Phele!');return;}
+  if(loggedInTeam.purse_crores<amount){alert(`❌ Insufficient Purse! Need ₹${amount.toFixed(2)}Cr`);return;}
+  
+  loggedInTeam.purse_crores-=amount;
+  players[currentIndex].highestBid=(parseFloat(players[currentIndex].highestBid)+amount).toFixed(2);
+  players[currentIndex].bidTeamShort=loggedInTeam.team_name.split(' ')[0];
+  players[currentIndex].bidTeam=loggedInTeam.team_name;
+  
+  updateTeamDisplay();
+  showPlayer(currentIndex);
+  addActivity(`${loggedInTeam.team_name} bids +₹${amount}Cr! New: ₹${players[currentIndex].highestBid}Cr`);
+  playSound('bidSound');
+  renderTeamsTable();
+}
+
+function startAuction(){
+  auctionStarted=true;
+  document.getElementById('statusText').className='status live';
+  document.getElementById('statusText').textContent='🔴 LIVE AUCTION';
+  startTimer();
+  addActivity('🎉 AUCTION STARTED!');
+  playSound('bidSound');
+}
+
+function startTimer(){
+  let time=60;
+  timerInterval=setInterval(()=>{
+    time--;
+    const mins=Math.floor(time/60),secs=time%60;
+    document.getElementById('timer').textContent=`${mins}:${secs.toString().padStart(2,'0')}`;
+    if(time<=10) playSound('timerBeep');
+    if(time<=0){
+      addActivity('⏰ Time up! Next player...');
+      nextPlayer();
+      time=60;
+    }
+  },1000);
+}
+
+function nextPlayer(){currentIndex=(currentIndex+1)%players.length;showPlayer(currentIndex);}
+function soldToCurrent(){addActivity('🎉 PLAYER SOLD!');confettiBurst();playSound('soldSound');nextPlayer();}
+function unsoldCurrent(){addActivity('❌ PLAYER UNSOLD');playSound('timerBeep');nextPlayer();}
+function pauseAuction(){clearInterval(timerInterval);document.getElementById('statusText').className='status paused';document.getElementById('statusText').textContent='⏸️ PAUSED';}
+function stopAuction(){clearInterval(timerInterval);document.getElementById('statusText').className='status stopped';document.getElementById('statusText').textContent='⏹️ STOPPED';}
+function randomPlayer(){currentIndex=Math.floor(Math.random()*players.length);showPlayer(currentIndex);}
+</script>
+</body>
+</html> 
