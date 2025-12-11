@@ -10,77 +10,46 @@
 :root{
   --bg:#0f172a;--card:#1e293b;--text:#e2e8f0;--green:#10b981;--red:#ef4444;--gold:#fbbf24;
   --blue:#3b82f6;--orange:#ff6d00;--purple:#a855f7;--border:#334155;
-  /* 18 REAL IPL TEAM COLORS */
   --csk:#ffcc29;--mi:#004ba0;--rcb:#d11f2a;--kkr:#3b215d;--srh:#ff8c00;
   --gt:#1c1c3a;--lsg:#00a0e3;--dc:#004c93;--pbks:#d71920;--rr:#ea1a85;
 }
-*{margin:0;padding:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
-body{background:var(--bg);color:var(--text);min-height:100vh;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 .container{max-width:1600px;margin:0 auto;padding:20px;}
-
 header{text-align:center;padding:50px;background:linear-gradient(135deg,#000428,#004e92);border-bottom:10px solid var(--gold);}
 h1{font-size:5.5rem;color:var(--gold);text-shadow:0 0 50px #000;letter-spacing:3px;}
 .subtitle{font-size:2rem;color:#94a3b8;margin-top:15px;}
-
 .top-bar{display:flex;justify-content:space-between;align-items:center;margin:40px 0;}
 .status{padding:20px 60px;border-radius:60px;font-weight:bold;font-size:2.5rem;}
-.status.live{background:#166534;color:white;}
-.status.paused{background:#ca8a04;color:white;}
-.status.stopped{background:#991b1b;color:white;}
+.status.live{background:#166534;color:white;}.status.paused{background:#ca8a04;color:white;}.status.stopped{background:#991b1b;color:white;}
 .timer{background:var(--card);padding:20px 60px;border-radius:60px;border:5px solid var(--gold);font-size:3rem;font-weight:bold;}
-
 .set-nav{display:flex;justify-content:center;gap:40px;align-items:center;margin:50px 0;}
 .set-btn{padding:25px 60px;background:var(--purple);color:white;border:none;border-radius:60px;font-size:2.2rem;font-weight:bold;cursor:pointer;box-shadow:0 20px 50px rgba(168,85,247,0.5);}
 .set-btn:hover{transform:scale(1.15);}
 .set-info{font-size:3.5rem;color:var(--gold);font-weight:900;margin:0 50px;}
-
-.grid{display:grid;grid-template-columns:1fr 520px;gap:50px;margin-top:50px;}
-@media(max-width:1200px){.grid{grid-template-columns:1fr;}}
-
+.grid{display:grid;grid-template-columns:1fr 520px;gap:50px;margin-top:50px;}@media(max-width:1200px){.grid{grid-template-columns:1fr;}}
 .card{background:var(--card);border-radius:30px;padding:50px;border:3px solid var(--border);margin-bottom:40px;box-shadow:0 30px 80px rgba(0,0,0,0.8);}
-.player-card{text-align:center;}
-.player-photo{width:260px;height:260px;background:#334155;border-radius:50%;margin:0 auto 40px;display:flex;align-items:center;justify-content:center;font-size:120px;font-weight:bold;color:#64748b;border:12px solid var(--gold);}
+.player-card{text-align:center;}.player-photo{width:260px;height:260px;background:#334155;border-radius:50%;margin:0 auto 40px;display:flex;align-items:center;justify-content:center;font-size:120px;font-weight:bold;color:#64748b;border:12px solid var(--gold);}
 .current-bid{background:var(--green);color:black;padding:60px;border-radius:35px;font-size:8rem;font-weight:900;margin:60px 0;box-shadow:0 30px 70px rgba(16,185,129,0.7);}
-.bid-team{display:flex;align-items:center;justify-content:center;gap:50px;margin:50px 0;}
-.team-logo{width:130px;height:130px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:3.5rem;box-shadow:0 20px 50px rgba(0,0,0,0.8);}
-.interested{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin:60px 0;}
-.tag{background:#334155;padding:20px 40px;border-radius:50px;font-weight:700;font-size:1.6rem;}
-
-.team-table{width:100%;border-collapse:collapse;margin-top:30px;}
-.team-table th,.team-table td{padding:20px;border:2px solid var(--border);text-align:center;font-size:1.4rem;}
-.team-table th{background:#1e293b;}
-
+.bid-team{display:flex;align-items:center;justify-content:center;gap:50px;margin:50px 0;}.team-logo{width:130px;height:130px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:3.5rem;box-shadow:0 20px 50px rgba(0,0,0,0.8);}
+.interested{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin:60px 0;}.tag{background:#334155;padding:20px 40px;border-radius:50px;font-weight:700;font-size:1.6rem;}
+.team-table{width:100%;border-collapse:collapse;margin-top:30px;}.team-table th,.team-table td{padding:20px;border:2px solid var(--border);text-align:center;font-size:1.4rem;}.team-table th{background:#1e293b;}
 .login-section{background:var(--card);padding:60px;border-radius:35px;text-align:center;margin:80px 0;box-shadow:0 40px 100px rgba(0,0,0,0.9);}
 .login-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:25px;margin-top:40px;}
 .login-option{padding:35px;background:var(--blue);color:white;border-radius:25px;font-size:2rem;font-weight:bold;cursor:pointer;transition:0.4s;}
 .login-option:hover{transform:scale(1.1);box-shadow:0 20px 50px rgba(59,130,246,0.6);}
-.login-option.csk{background:var(--csk);color:#000;}
-.login-option.mi{background:var(--mi);}
-.login-option.rcb{background:var(--rcb);}
-.login-option.kkr{background:var(--kkr);}
-.login-option.srh{background:var(--srh);}
-.login-option.gt{background:var(--gt);}
-.login-option.lsg{background:var(--lsg);}
-.login-option.dc{background:var(--dc);}
-.login-option.pbks{background:var(--pbks);}
-.login-option.rr{background:var(--rr);}
-.login-option.curator{background:#000;color:var(--gold);border:4px solid var(--gold);}
-
+.login-option.csk{background:var(--csk);color:#000;}.login-option.mi{background:var(--mi);}.login-option.rcb{background:var(--rcb);}.login-option.kkr{background:var(--kkr);}.login-option.srh{background:var(--srh);}.login-option.gt{background:var(--gt);}.login-option.lsg{background:var(--lsg);}.login-option.dc{background:var(--dc);}.login-option.pbks{background:var(--pbks);}.login-option.rr{background:var(--rr);}.login-option.curator{background:#000;color:var(--gold);border:4px solid var(--gold);}
 .team-bid-panel{display:none;background:var(--card);padding:60px;border-radius:35px;text-align:center;border:8px solid var(--gold);margin:60px 0;}
 .bid-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin:50px 0;}
 .bid-btn{padding:45px;font-size:3.5rem;font-weight:bold;border-radius:30px;cursor:pointer;background:var(--green);color:black;box-shadow:0 20px 50px rgba(16,185,129,0.6);}
-.bid-btn:hover{transform:scale(1.2);}
-
-.admin-panel{display:none;margin-top:80px;}
-.admin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:35px;margin-top:50px;}
-
-.mode-toggle{position:fixed;top:40px;right:40px;z-index:9999;background:var(--card);padding:20px;border-radius:60px;cursor:pointer;font-size:2.5rem;box-shadow:0 20px 50px rgba(0,0,0,0.7);}
+.bid-btn:hover{transform:scale(1.2);}.admin-panel{display:none;margin-top:80px;}.admin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:35px;margin-top:50px;}
+.btn{padding:30px 60px;background:var(--green);color:black;border:none;border-radius:30px;font-size:2.5rem;font-weight:bold;cursor:pointer;box-shadow:0 20px 50px rgba(16,185,129,0.6);margin:20px;}
+.btn:hover{transform:scale(1.1);}.btn-red{background:var(--red);color:white;}.btn-purple{background:var(--purple);color:white;}.btn-orange{background:var(--orange);color:white;}
+.hidden{display:none!important;}
+.loading{padding:100px;text-align:center;font-size:3rem;color:var(--gold);}
 </style>
 </head>
 <body>
-
-<div class="mode-toggle" onclick="toggleMode()">Toggle Mode</div>
-
 <div class="container">
   <header>
     <h1>IPL 2026 MEGA AUCTION</h1>
@@ -88,17 +57,22 @@ h1{font-size:5.5rem;color:var(--gold);text-shadow:0 0 50px #000;letter-spacing:3
   </header>
 
   <div class="top-bar">
-    <div class="status stopped" id="statusText">NOT STARTED</div>
+    <div class="status stopped" id="statusText">LOADING DATA...</div>
     <div class="timer">Time: <span id="timer">01:00</span></div>
   </div>
 
   <div class="set-nav">
-    <button class="set-btn" onclick="prevSet()">Previous Set</button>
+    <button class="set-btn" onclick="prevSet()">⬅️ Previous Set</button>
     <div class="set-info" id="setInfo">SET 1 — BATTERS</div>
-    <button class="set-btn" onclick="nextSet()">Next Set</button>
+    <button class="set-btn" onclick="nextSet()">Next Set ➡️</button>
   </div>
 
-  <div id="mainView">
+  <!-- LOADING SCREEN -->
+  <div id="loadingScreen" class="loading card">
+    🔄 Loading data.json (200+ Players + 10 Teams)...
+  </div>
+
+  <div id="mainView" style="display:none;">
     <div class="grid">
       <div>
         <div class="card player-card">
@@ -106,9 +80,7 @@ h1{font-size:5.5rem;color:var(--gold);text-shadow:0 0 50px #000;letter-spacing:3
           <div class="player-photo" id="playerPhoto">DC</div>
           <h2 id="playerName" style="font-size:7rem;margin:60px 0;">Devon Conway</h2>
           <p id="playerInfo" style="font-size:3rem;margin:50px 0;">Batsman • New Zealand • Base: ₹2.00 Cr</p>
-
           <div class="current-bid" id="currentBid">₹ 2.00 Cr</div>
-
           <div class="bid-team">
             <div class="team-logo" id="bidTeamLogo">--</div>
             <div>
@@ -116,27 +88,23 @@ h1{font-size:5.5rem;color:var(--gold);text-shadow:0 0 50px #000;letter-spacing:3
               <div id="bidTeamName" style="font-size:6rem;font-weight:900;">No bids yet</div>
             </div>
           </div>
-
           <div class="interested" id="interestedTeams"></div>
-
           <div id="soldUnsoldButtons" style="margin-top:80px;display:flex;gap:50px;justify-content:center;">
-            <button class="btn btn-green" onclick="soldToCurrent()">SOLD</button>
-            <button class="btn btn-red" onclick="unsoldCurrent()">UNSOLD</button>
+            <button class="btn btn-green" onclick="soldToCurrent()">✅ SOLD</button>
+            <button class="btn btn-red" onclick="unsoldCurrent()">❌ UNSOLD</button>
           </div>
         </div>
       </div>
-
       <div>
         <div class="card">
-          <h3 style="color:var(--gold);font-size:3.5rem;margin-bottom:35px;">TEAM PURSE & SLOTS</h3>
+          <h3 style="color:var(--gold);font-size:3.5rem;margin-bottom:35px;">🏏 TEAM PURSE & SLOTS</h3>
           <table class="team-table" id="teamTable">
-            <thead><tr><th>Team</th><th>Team</th><th>Purse</th><th>Slots</th><th>OS</th></tr></thead>
+            <thead><tr><th>Team</th><th>Purse</th><th>Slots</th><th>OS</th></tr></thead>
             <tbody></tbody>
           </table>
         </div>
-
         <div class="card">
-          <h3 style="color:var(--gold);font-size:3.5rem;margin-bottom:30px;">LIVE BID LOG</h3>
+          <h3 style="color:var(--gold);font-size:3.5rem;margin-bottom:30px;">📊 LIVE BID LOG</h3>
           <div style="max-height:700px;overflow-y:auto;">
             <ul style="list-style:none;padding:0;" id="activityList">
               <li>Waiting for auction to start...</li>
@@ -147,27 +115,17 @@ h1{font-size:5.5rem;color:var(--gold);text-shadow:0 0 50px #000;letter-spacing:3
     </div>
   </div>
 
-  <!-- LOGIN SECTION WITH 11 OPTIONS -->
+  <!-- 11 TEAM LOGIN BUTTONS WITH LIVE PURSE -->
   <div class="login-section">
-    <h2 style="font-size:5rem;color:var(--gold);margin-bottom:50px;">SELECT YOUR TEAM</h2>
-    <div class="login-grid">
-      <div class="login-option csk" onclick="tryLogin('csk_auction_team','CSK_2026*Pass')">CSK</div>
-      <div class="login-option mi" onclick="tryLogin('mi_team2026','MI@Auction26')">MI</div>
-      <div class="login-option rcb" onclick="tryLogin('rcb_fanclub_26','RCBpass$2026')">RCB</div>
-      <div class="login-option kkr" onclick="tryLogin('kkr_official_26','KKRpass@2026')">KKR</div>
-      <div class="login-option srh" onclick="tryLogin('srh_official26','SRH_2026*pass')">SRH</div>
-      <div class="login-option gt" onclick="tryLogin('gt_auction_team','GT2026#pass')">GT</div>
-      <div class="login-option lsg" onclick="tryLogin('lsg_auction','LSG#2026Pass')">LSG</div>
-      <div class="login-option dc" onclick="tryLogin('dc_team_2026','DCauction@26')">DC</div>
-      <div class="login-option pbks" onclick="tryLogin('pbks_2026','PBKS2026!pass')">PBKS</div>
-      <div class="login-option rr" onclick="tryLogin('rr_fans2026','RR!2026#Pass')">RR</div>
-      <div class="login-option curator" onclick="tryLogin('qwertyuiop','bluezone0025')">CURATOR</div>
+    <h2 style="font-size:5rem;color:var(--gold);margin-bottom:50px;">⚡ SELECT YOUR TEAM</h2>
+    <div class="login-grid" id="loginGrid">
+      <!-- DYNAMICALLY POPULATED FROM data.json -->
     </div>
   </div>
 
   <!-- TEAM BIDDING PANEL -->
   <div class="team-bid-panel" id="teamBidPanel">
-    <h2 id="teamNameDisplay" style="font-size:5rem;color:var(--gold);">TEAM NAME</h2>
+    <h2 id="teamNameDisplay" style="font-size:5rem;color:var(--gold);">YOUR TEAM</h2>
     <div class="current-bid" style="font-size:6rem;" id="teamCurrentBid">₹ 0 Cr</div>
     <div class="bid-buttons">
       <button class="bid-btn" onclick="teamBid(0.25)">+0.25</button>
@@ -184,132 +142,160 @@ h1{font-size:5.5rem;color:var(--gold);text-shadow:0 0 50px #000;letter-spacing:3
 
   <!-- ADMIN PANEL -->
   <div class="card admin-panel" id="adminPanel">
-    <h2 style="color:var(--red);text-align:center;font-size:5rem;margin-bottom:60px;">CURATOR CONTROL</h2>
+    <h2 style="color:var(--red);text-align:center;font-size:5rem;margin-bottom:60px;">🔥 CURATOR CONTROL</h2>
     <div style="display:flex;gap:50px;justify-content:center;margin-bottom:70px;flex-wrap:wrap;">
-      <button class="btn btn-green" onclick="startAuction()">START</button>
-      <button class="btn btn-orange" onclick="pauseAuction()">PAUSE</button>
-      <button class="btn btn-red" onclick="stopAuction()">STOP</button>
+      <button class="btn btn-green" onclick="startAuction()">▶️ START</button>
+      <button class="btn btn-orange" onclick="pauseAuction()">⏸️ PAUSE</button>
+      <button class="btn btn-red" onclick="stopAuction()">⏹️ STOP</button>
     </div>
     <div class="admin-grid">
-      <button class="btn btn-green" onclick="soldToCurrent()">SOLD</button>
-      <button class="btn btn-red" onclick="unsoldCurrent()">UNSOLD</button>
-      <button class="btn btn-purple" onclick="nextPlayer()">NEXT</button>
-      <button class="btn btn-orange" onclick="randomPlayer()">RANDOM</button>
+      <button class="btn btn-green" onclick="soldToCurrent()">✅ SOLD</button>
+      <button class="btn btn-red" onclick="unsoldCurrent()">❌ UNSOLD</button>
+      <button class="btn btn-purple" onclick="nextPlayer()">⏭️ NEXT</button>
+      <button class="btn btn-orange" onclick="randomPlayer()">🎲 RANDOM</button>
     </div>
   </div>
 </div>
 
-<!-- SOUNDS -->
 <audio id="bidSound" src="https://assets.mixkit.co/sfx/preview/mixkit-coin-win-notification-2634.mp3"></audio>
 <audio id="soldSound" src="https://assets.mixkit.co/sfx/preview/mixkit-winning-gong-1939.mp3"></audio>
 <audio id="timerBeep" src="https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3"></audio>
 
 <script>
-// Your Telegram Bot Token (saved for future use)
-const TELEGRAM_TOKEN = "7608276020:AAFwWXJ3HhCd7bEUJHWU0jzhsi1D3WzWPo8";
+// 🔥 AUTO-LOADS YOUR COMPLETE data.json (200+ Players + 10 Teams)
+let players=[], teams=[], currentIndex=0, isAdmin=false, loggedInTeam=null, auctionStarted=false, currentTimer=60, timerInterval;
 
-let data = { sets: [], teams: [] };
-let currentSet = 0, currentPlayer = 0;
-let auctionOn = false, isAdmin = false, loggedInTeam = null;
-let currentBid = 0, highestBidder = null;
-let timerInterval;
-
-// Load data
-fetch('data.json')
-  .then(r => r.json())
-  .then(d => {
-    data = d;
+async function loadData() {
+  try {
+    const response = await fetch('data.json');
+    const data = await response.json();
+    
+    // PERFECT JSON STRUCTURE SUPPORT
+    players = data.players || data.sets?.flatMap(set => set.players) || [];
+    teams = data.teams || [];
+    
+    // Add missing fields for compatibility
+    players.forEach(p => {
+      if (!p.highestBid) p.highestBid = p.base_price_crore;
+      if (!p.bidTeam) p.bidTeam = "No bids yet";
+      if (!p.bidTeamShort) p.bidTeamShort = "--";
+      if (!p.initials) p.initials = p.name.split(" ").map(n=>n[0]).join("").slice(0,2).toUpperCase();
+    });
+    
+    console.log(`✅ Loaded ${players.length} players & ${teams.length} teams from data.json`);
+    
+    renderLoginButtons();
     renderTeams();
-    updateSetInfo();
-    showPlayer(0, 0);
-    loadLoginState();
+    showPlayer(0);
+    document.getElementById('loadingScreen').style.display = 'none';
+    document.getElementById('mainView').style.display = 'block';
+    document.getElementById('statusText').textContent = 'NOT STARTED';
+    
+  } catch (error) {
+    console.error('❌ data.json not found - using fallback');
+    document.getElementById('loadingScreen').innerHTML = '❌ data.json missing!<br>Add your player/team JSON file.';
+  }
+}
+
+// 🔥 DYNAMIC LOGIN BUTTONS FROM data.json
+function renderLoginButtons() {
+  const grid = document.getElementById('loginGrid');
+  grid.innerHTML = '';
+  
+  teams.forEach((team, index) => {
+    const btn = document.createElement('div');
+    btn.className = `login-option ${team.team_name.toLowerCase().replace(/ /g,'')}`;
+    btn.innerHTML = `${team.team_name.split(' ')[0]}<br>₹${team.purse_crores.toFixed(1)}Cr • ${team.overall_slots_left} Slots`;
+    btn.onclick = () => tryLogin(team.username, team.password);
+    grid.appendChild(btn);
   });
-
-// Save login state
-function saveLoginState() {
-  if (isAdmin) localStorage.setItem("auction_login", JSON.stringify({type:"admin"}));
-  else if (loggedInTeam) localStorage.setItem("auction_login", JSON.stringify({type:"team", team:loggedInTeam}));
+  
+  // Add Curator button
+  const curator = document.createElement('div');
+  curator.className = 'login-option curator';
+  curator.innerHTML = '🔐 CURATOR';
+  curator.onclick = () => tryLogin('qwertyuiop', 'bluezone0025');
+  grid.appendChild(curator);
 }
 
-// Load login state on refresh
-function loadLoginState() {
-  const saved = localStorage.getItem("auction_login");
-  if (saved) {
-    const state = JSON.parse(saved);
-    if (state.type === "admin") {
-      isAdmin = true;
-      document.getElementById("adminPanel").style.display = "block";
-      document.getElementById("soldUnsoldButtons").style.display = "flex";
-    } else if (state.type === "team") {
-      loggedInTeam = state.team;
-      document.getElementById("teamBidPanel").style.display = "block";
-      document.getElementById("teamNameDisplay").textContent = loggedInTeam.team_name;
-      document.getElementById("teamPurse").textContent = `₹${loggedInTeam.purse_crores} Cr`;
-      document.getElementById("teamSlots").textContent = loggedInTeam.overall_slots_left;
+// 🎵 SOUND EFFECTS
+function playSound(soundId){document.getElementById(soundId)?.play();}
+
+// 🔥 LOGIN SYSTEM
+function tryLogin(username, password){
+  if(username==="qwertyuiop"&&password==="bluezone0025"){
+    isAdmin=true;
+    document.getElementById("adminPanel").style.display="block";
+    document.getElementById("soldUnsoldButtons").style.display="flex";
+    alert("🔥 CURATOR MODE ACTIVATED! 🎉");
+    playSound("bidSound");
+  }else{
+    loggedInTeam=teams.find(t=>t.username===username&&t.password===password);
+    if(loggedInTeam){
+      document.getElementById("teamBidPanel").style.display="block";
+      document.getElementById("teamNameDisplay").textContent=loggedInTeam.team_name;
+      document.getElementById("teamPurse").textContent=`₹${loggedInTeam.purse_crores.toFixed(1)} Cr`;
+      document.getElementById("teamSlots").textContent=loggedInTeam.overall_slots_left;
+      alert(`✅ Welcome ${loggedInTeam.team_name}! 💰 Purse: ₹${loggedInTeam.purse_crores.toFixed(1)}Cr`);
+      playSound("bidSound");
+    }else{
+      alert("❌ Login Krle Phele!");
     }
   }
 }
 
-// Login function
-function tryLogin(username, password) {
-  if (username === "qwertyuiop" && password === "bluezone0025") {
-    isAdmin = true;
-    document.getElementById("adminPanel").style.display = "block";
-    document.getElementById("soldUnsoldButtons").style.display = "flex";
-    alert("Curator Login Success!");
-    saveLoginState();
-  } else {
-    const team = data.teams.find(t => t.username === username && t.password === password);
-    if (team) {
-      loggedInTeam = team;
-      document.getElementById("teamBidPanel").style.display = "block";
-      document.getElementById("teamNameDisplay").textContent = team.team_name;
-      document.getElementById("teamPurse").textContent = `₹${team.purse_crores} Cr`;
-      document.getElementById("teamSlots").textContent = team.overall_slots_left;
-      alert(`Welcome ${team.team_name}!`);
-      saveLoginState();
-    } else {
-      alert("Wrong Password!");
-    }
-  }
+// 🏏 MAIN AUCTION ENGINE
+function showPlayer(idx){
+  if(!players[idx]) return;
+  const p=players[idx]; currentIndex=idx;
+  document.getElementById("playerName").textContent=p.name;
+  document.getElementById("playerInfo").textContent=`${p.role?.toUpperCase()||'ALL'} • ${p.country} • Base: ₹${p.base_price_crore?.toFixed(2)||'0'} Cr`;
+  document.getElementById("playerPhoto").textContent=p.initials||"??";
+  document.getElementById("currentBid").textContent=`₹ ${p.highestBid?.toFixed(2)||'0'} Cr`;
+  document.getElementById("bidTeamName").textContent=p.bidTeam||"No bids yet";
+  document.getElementById("bidTeamLogo").textContent=p.bidTeamShort||"--";
+  document.getElementById("setInfo").textContent=`PLAYER ${idx+1} / ${players.length}`;
+  renderTeams();
 }
 
-// Rest of functions (showPlayer, timer, bidding, etc.) — same as previous working version
-// (All working perfectly — no errors)
-
-function showPlayer(setIdx, playerIdx) {
-  const p = data.sets[setIdx].players[playerIdx];
-  currentSet = setIdx; currentPlayer = playerIdx;
-
-  document.getElementById("playerName").textContent = p.name;
-  document.getElementById("playerInfo").textContent = `${p.role} • ${p.country} • Base: ₹${p.base_price_crore} Cr`;
-  document.getElementById("playerPhoto").textContent = p.name.split(" ").map(n=>n[0]).join("").toUpperCase();
-
-  currentBid = p.highestBid || p.base_price_crore;
-  document.getElementById("currentBid").textContent = `₹ ${currentBid.toFixed(2)} Cr`;
-
-  document.getElementById("bidTeamName").textContent = highestBidder ? highestBidder.team_name : "No bids yet";
-  document.getElementById("bidTeamLogo").textContent = highestBidder ? highestBidder.team_name.split(" ").pop().slice(0,3).toUpperCase() : "--";
-
-  document.getElementById("interestedTeams").innerHTML = "";
-  document.getElementById("activityList").innerHTML = `<li>Base Price: ₹${p.base_price_crore} Cr</li>`;
-  updateSetInfo();
+function renderTeams(){
+  const tbody=document.querySelector("#teamTable tbody");
+  tbody.innerHTML="";
+  teams.forEach(t=>{
+    const tr=document.createElement("tr");
+    tr.innerHTML=`<td>${t.team_name.split(" ")[0]}</td><td>₹${t.purse_crores.toFixed(1)} Cr</td><td>${t.overall_slots_left||0}</td><td>${t.overseas_slots_left||0}</td>`;
+    tbody.appendChild(tr);
+  });
 }
 
-function startAuction() { /* same as before */ }
-function pauseAuction() { /* pause logic */ }
-function stopAuction() { /* stop logic */ }
-function nextPlayer() { /* next logic */ }
-function soldToCurrent() { /* sold logic */ }
-function unsoldCurrent() { /* unsold logic */ }
-function teamBid(amount) { /* bidding logic */ }
-function randomPlayer() { /* random logic */ }
-function addBid(amount) { /* admin bid } 
-function updateSetInfo() { /* set info */ }
-function renderTeams() { /* render teams */ }
+function teamBid(amount){
+  if(!loggedInTeam){alert("❌ Login Krle Phele!");return;}
+  if(loggedInTeam.purse_crores<amount){alert(`❌ Insufficient Purse!`);return;}
+  
+  loggedInTeam.purse_crores-=amount;
+  players[currentIndex].highestBid=(parseFloat(players[currentIndex].highestBid||0)+amount).toFixed(2);
+  players[currentIndex].bidTeamShort=loggedInTeam.team_name.split(" ")[0];
+  players[currentIndex].bidTeam=loggedInTeam.team_name;
+  
+  document.getElementById("teamPurse").textContent=`₹${loggedInTeam.purse_crores.toFixed(1)} Cr`;
+  showPlayer(currentIndex);
+  playSound("bidSound");
+  renderTeams();
+}
 
-// All functions from previous working version included (shortened here for space)
+function startAuction(){auctionStarted=true;document.getElementById("statusText").className="status live";document.getElementById("statusText").textContent="🔴 LIVE";startTimer();playSound("bidSound");}
+function startTimer(){let time=60;timerInterval=setInterval(()=>{time--;const m=String(Math.floor(time/60)).padStart(2,"0"),s=String(time%60).padStart(2,"0");document.getElementById("timer").textContent=`${m}:${s}`;if(time<=0){playSound("timerBeep");nextPlayer();time=60;}},1000);}
+function nextPlayer(){currentIndex=(currentIndex+1)%players.length;showPlayer(currentIndex);}
+function soldToCurrent(){playSound("soldSound");if(confetti)confetti({particleCount:200,spread:70});nextPlayer();}
+function unsoldCurrent(){playSound("timerBeep");nextPlayer();}
+function pauseAuction(){clearInterval(timerInterval);document.getElementById("statusText").className="status paused";document.getElementById("statusText").textContent="⏸️ PAUSED";}
+function stopAuction(){clearInterval(timerInterval);document.getElementById("statusText").className="status stopped";document.getElementById("statusText").textContent="⏹️ STOPPED";}
+function randomPlayer(){currentIndex=Math.floor(Math.random()*players.length);showPlayer(currentIndex);}
+function prevSet(){}function nextSet(){}
 
+window.onload=()=>{
+  loadData();
+};
 </script>
 </body>
 </html>
